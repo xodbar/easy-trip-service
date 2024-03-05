@@ -1,0 +1,52 @@
+spring.application.name: easy-trip-service
+
+---
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?user=user&password=password&currentSchema=easy_trip_develop&ApplicationName=easyTripService
+  jpa:
+    hibernate:
+      ddl-auto: update
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      password: ""
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: xodbarq@gmail.com
+    password: "100702Zh$"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+
+app:
+  minio:
+    endpoint: http://localhost:9000
+    username: minio_user
+    password: minio_password
+    access-key: iitu_accessKey
+    secret-key: iitu_secretKey777
+    default-bucket: easy-trip-service-develop
+  cache:
+    expiration-millis: 3600000
+  rest-template:
+    timeout-millis:
+      read: 180000
+      connect: 60000
+  service:
+    estate-explorer:
+      url: http://localhost:8080/estate-explorer
