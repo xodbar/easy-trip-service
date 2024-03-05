@@ -5,7 +5,7 @@ spring:
   profiles:
     active: test
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?user=user&password=password&currentSchema=easy_trip_develop&ApplicationName=easyTripService
+    url: jdbc:postgresql://localhost:2345/postgres?user=user&password=password&currentSchema=easy_trip_develop&ApplicationName=easyTripService
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,20 +18,14 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: xodbarq@gmail.com
-    password: "100702Zh$"
+    username: "yessengaziev.z@gmail.com"
+    password: "gmwtknztkdxooacm"
     properties:
       mail:
         smtp:
           auth: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
           starttls:
             enable: true
-          socketFactory:
-            port: 465
-            class: javax.net.ssl.SSLSocketFactory
 
 app:
   minio:
