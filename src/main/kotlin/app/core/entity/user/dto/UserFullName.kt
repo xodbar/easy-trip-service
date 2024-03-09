@@ -1,4 +1,4 @@
-package app.core.entity.user
+package app.core.entity.user.dto
 
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable

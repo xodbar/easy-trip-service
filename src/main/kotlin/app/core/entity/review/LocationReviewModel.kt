@@ -1,7 +1,7 @@
 package app.core.entity.review
 
 import app.core.entity.location.LocationModel
-import app.core.entity.user.UserModel
+import app.core.entity.user.repo.UserModel
 import jakarta.persistence.*
 
 @Entity
