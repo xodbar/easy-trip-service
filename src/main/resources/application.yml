@@ -1,4 +1,6 @@
 spring.application.name: easy-trip-service
+server:
+  port: 8080
 
 ---
 spring:

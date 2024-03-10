@@ -8,14 +8,14 @@ import org.springframework.data.redis.core.RedisTemplate
 @Configuration
 class RedisConfig {
 
-	@Bean
-	fun jedisConnectionFactory() = JedisConnectionFactory()
+  @Bean
+  fun jedisConnectionFactory() = JedisConnectionFactory()
 
-	@Bean
-	fun redisTemplate(): RedisTemplate<String, Any> {
-		val template: RedisTemplate<String, Any> = RedisTemplate()
-		template.connectionFactory = jedisConnectionFactory()
+  @Bean
+  fun redisTemplate(): RedisTemplate<String, Any> {
+    val template: RedisTemplate<String, Any> = RedisTemplate()
+    template.connectionFactory = jedisConnectionFactory()
 
-		return template
-	}
+    return template
+  }
 }

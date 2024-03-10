@@ -46,6 +46,7 @@ internal class DefaultFeatureFlagService internal constructor(
     featureFlag.defaultState = defaultState
   }
 
+  @OptIn(ExperimentalStdlibApi::class)
   @Transactional
   override fun initialize() {
     return FeatureName.entries.forEach { featureName ->

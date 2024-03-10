@@ -2,7 +2,11 @@ package app.core.estateExplorer.service
 
 import app.core.estateExplorer.dto.EstateExplorerListRequest
 import app.core.estateExplorer.dto.EstateExplorerListResponse
-import app.core.feature.*
+import app.core.feature.EnabledFeature
+import app.core.feature.Feature
+import app.core.feature.FeatureName
+import app.core.feature.MockedFeature
+import app.core.feature.ToggleableFeature
 import app.core.feature.service.FeatureFlagService
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component

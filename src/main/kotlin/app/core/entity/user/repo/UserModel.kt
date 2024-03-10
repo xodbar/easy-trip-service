@@ -1,9 +1,9 @@
 package app.core.entity.user.repo
 
 import app.core.entity.subscription.SubscriptionModel
-import app.core.entity.user.dto.UserFullName
 import app.core.entity.user.dto.User
 import app.core.entity.user.dto.UserExtended
+import app.core.entity.user.dto.UserFullName
 import jakarta.persistence.Column
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
@@ -83,6 +83,7 @@ class UserModel(
 }
 
 enum class UserStatus(val description: String) {
+  VERIFICATION_PENDING("Ожидание верификации по email"),
   ACTIVE("Active"),
   BLOCKED_DUE_TO_POLICY("Blocked due to app policy"),
   BLOCKED_DUE_TO_INACTIVITY("Blocked due to inactivity")

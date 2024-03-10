@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface SubscriptionRepo : JpaRepository<SubscriptionModel, Long> {
   fun findFirstByCode(code: SubscriptionCode): SubscriptionModel?
+  fun findFirstByCodeContains(code: String): SubscriptionModel?
 }

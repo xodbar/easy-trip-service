@@ -1,5 +1,7 @@
 package app
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -7,5 +9,7 @@ import org.springframework.boot.runApplication
 class EasyTripServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<EasyTripServiceApplication>(*args)
+  val mapper = jacksonObjectMapper()
+  mapper.registerKotlinModule()
+  runApplication<EasyTripServiceApplication>(*args)
 }

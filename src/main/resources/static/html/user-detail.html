@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Detail</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>User Details</h2>
+  <form id="userForm">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" disabled>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" disabled>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" disabled>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="middleName">Middle Name</label>
+        <input type="text" class="form-control" id="middleName" disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" disabled>
+    </div>
+    <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+    <button type="submit" class="btn btn-success" style="display: none;" id="saveBtn">Save</button>
+  </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    const userId = new URLSearchParams(window.location.search).get('id');
+    if (userId) {
+      fetchUserDetails(userId);
+    }
+
+    $('#editBtn').click(function () {
+      $('input').prop('disabled', false);
+      $('#saveBtn').show();
+    });
+
+    $('#userForm').submit(function (e) {
+      e.preventDefault();
+      if (userId) {
+        updateUser(userId);
+      }
+    });
+  });
+
+  function fetchUserDetails(id) {
+    $.ajax({
+      url: `http://localhost:8080/admin/users/${id}`,
+      type: 'GET',
+      success: function (user) {
+        $('#username').val(user.username);
+        $('#lastName').val(user.fullName.lastName);
+        $('#firstName').val(user.fullName.firstName);
+        $('#middleName').val(user.fullName.middleName || '');
+        $('#email').val(user.email);
+      },
+      error: function () {
+        alert('Error fetching user details');
+      }
+    });
+  }
+
+  function updateUser(id) {
+    const userUpdateData = {
+      username: $('#username').val(),
+      fullName: {
+        lastName: $('#lastName').val(),
+        firstName: $('#firstName').val(),
+        middleName: $('#middleName').val() || null
+      },
+      email: $('#email').val(),
+      // Предполагаем, что остальные поля уже заполнены и включены в userUpdateData
+    };
+
+    $.ajax({
+      url: `http://localhost:8080/admin/users/${id}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(userUpdateData),
+      success: function (response) {
+        alert('User updated successfully');
+        $('input').prop('disabled', true);
+        $('#saveBtn').hide();
+        // Перезагрузите данные пользователя или перенаправьте пользователя
+      },
+      error: function (xhr, status, error) {
+        alert('Error updating user: ' + error);
+      }
+    });
+  }
+</script>
+</body>
+</html>
