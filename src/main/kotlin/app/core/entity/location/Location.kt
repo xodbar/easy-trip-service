@@ -13,5 +13,6 @@ data class Location(
   val nearestSupportedCity: SupportedCity,
   val createdAt: LocalDateTime,
   val updatedAt: LocalDateTime,
-  val tags: Set<LocationTag>
+  val tags: Set<LocationTag>,
+  val averageBudget: Double
 ) : Serializable

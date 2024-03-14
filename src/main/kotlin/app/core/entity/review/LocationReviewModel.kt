@@ -32,4 +32,12 @@ class LocationReviewModel(
 
   @Column(name = "content")
   val content: String
-)
+) {
+  fun toDTO() = LocationReview(
+    id = id,
+    userId = user.id,
+    locationId = location.id,
+    rating = rating,
+    content = content,
+  )
+}

@@ -80,7 +80,3 @@ class RegisterUser(
     val status: UserStatus?
   ) : Serializable
 }
-
-data class LoginViaEmailElement(
-  val username: String
-) : Serializable

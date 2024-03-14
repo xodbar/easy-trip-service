@@ -22,7 +22,7 @@ class UserLocationFavoriteModel(
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  val id: Long,
+  val id: Long = 0,
 
   @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -37,4 +37,10 @@ class UserLocationFavoriteModel(
 
   @Column(name = "metadata")
   val metadataJson: String?
-)
+) {
+  fun toDTO() = UserLocationFavorite(
+    userId = user.id,
+    locationId = location.id,
+    timestamp = timestamp
+  )
+}

@@ -36,4 +36,12 @@ class UserLocationViewModel(
 
   @Column(name = "metadata")
   val metadataJson: String?
-)
+) {
+  fun toDTO() = UserLocationView(
+    id = id,
+    userId = user.id,
+    locationId = location.id,
+    timestamp = timestamp,
+    metadataJson = metadataJson
+  )
+}

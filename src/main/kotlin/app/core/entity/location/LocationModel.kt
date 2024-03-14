@@ -52,7 +52,10 @@ class LocationModel(
     joinColumns = [JoinColumn(name = "location_id")],
     inverseJoinColumns = [JoinColumn(name = "tag_id")]
   )
-  var tags: Set<LocationTagModel>
+  var tags: Set<LocationTagModel>,
+
+  @Column(name = "average_budget")
+  var averageBudget: Double
 ) {
 
   fun toDTO() = Location(
@@ -64,5 +67,6 @@ class LocationModel(
     createdAt = createdAt,
     updatedAt = updatedAt,
     tags = tags.map { it.toDTO() }.toSet(),
+    averageBudget = averageBudget
   )
 }
