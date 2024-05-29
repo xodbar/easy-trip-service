@@ -8,9 +8,13 @@ spring:
     active: test
   datasource:
     url: jdbc:postgresql://localhost:2345/postgres?user=user&password=password&currentSchema=easy_trip_develop&ApplicationName=easyTripService
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
       host: localhost

@@ -32,6 +32,7 @@ dependencies {
   implementation 'io.micrometer:micrometer-core'
   implementation 'io.micrometer:micrometer-registry-prometheus'
   implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
   implementation 'org.jetbrains.kotlin:kotlin-reflect'
   implementation 'org.json:json:20230227'
   implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0'
@@ -60,5 +61,6 @@ tasks.register('bootRunProd') {
 compileKotlin {
   kotlinOptions {
     languageVersion = "1.9"
+    apiVersion = "1.8"
   }
 }

@@ -6,6 +6,7 @@ import app.core.entity.tag.LocationTagRepo
 import app.core.estateExplorer.dto.SupportedCity
 import app.core.utils.date.getCurrentAlmatyLocalDateTime
 import org.springframework.stereotype.Service
+import java.io.Serializable
 
 @Service
 class LocationService(
@@ -13,6 +14,9 @@ class LocationService(
   private val locationTagRepo: LocationTagRepo,
   private val popularLocationRepo: PopularLocationRepo
 ) {
+
+  fun getAll() =
+    repo.findAll().map { it.toDTO() }
 
   fun createLocation(
     title: String,
@@ -35,7 +39,20 @@ class LocationService(
   ).toDTO()
 
   fun getLocationByTitle(title: String) =
-    repo.findFirstByTitle(title)?.toDTO()
+    repo.findByTitle(title)?.toDTO()
+
+  fun updateLocation(id: Long, updateLocationRequest: UpdateLocationRequest) {
+    val model = repo.findById(id).get()
+
+    updateLocationRequest.title?.let { model.title = it }
+    updateLocationRequest.description?.let { model.description = it }
+    updateLocationRequest.coordinates?.let { model.coordinates = it }
+    updateLocationRequest.nearestSupportedCity?.let { model.nearestSupportedCity = it }
+    updateLocationRequest.tags?.let { model.tags = locationTagRepo.getAllByNameIn(it.map { tag -> tag.name }).toSet() }
+    updateLocationRequest.averageBudget?.let { model.averageBudget = it }
+
+    repo.save(model)
+  }
 
   fun getPopularLocations() =
     popularLocationRepo.findAll()
@@ -45,3 +62,12 @@ class LocationService(
   fun getById(id: Long) =
     repo.findById(id).orElseThrow().toDTO()
 }
+
+data class UpdateLocationRequest(
+  val title: String?,
+  val description: String?,
+  val coordinates: LocationCoordinate?,
+  val nearestSupportedCity: SupportedCity?,
+  val tags: Set<LocationTag>?,
+  val averageBudget: Double?
+) : Serializable

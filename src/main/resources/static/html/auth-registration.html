@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+  <title>EasyTrip</title>
+  <style>
+    body, html {
+      font-family: "Public Sans", sans-serif;
+      height: 100%;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: xxx-large;
+    }
+
+    .bg-container {
+      background-color: #fdfeff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+    }
+
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .logo {
+      max-height: 70vh; /* Максимальная высота изображения */
+      object-fit: contain; /* Чтобы изображение сохраняло пропорции */
+      margin: 0 auto; /* Центрирование изображения */
+    }
+
+    .form-background {
+      flex-grow: 1; /* Заставляет фон тянуться до конца страницы */
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+<div class="bg-container min-vh-100">
+  <div class="form-background" style="color: #142d3a">
+    <form class="form-signin" id="registerForm">
+      <h1 class="h3 mt-3 mb-3 text-uppercase text-align-left"><span class="text-info">Registration</span></h1>
+
+      <div class="mb-2 text-left form-group">
+        <label for="inputFirstName" style="font-size: small">*First Name:</label>
+        <input type="text" id="inputFirstName" class="form-control rounded-1"
+               style="font-size: small; height: fit-content" placeholder="John" required>
+      </div>
+
+      <div class="mb-2 text-left form-group">
+        <label for="inputLastName" style="font-size: small">*Last Name:</label>
+        <input type="text" id="inputLastName" class="form-control rounded-1"
+               style="font-size: small; height: fit-content" placeholder="Doe" required>
+      </div>
+
+      <div class="mb-2 text-left form-group">
+        <label for="inputMiddleName" style="font-size: small">Middle Name:</label>
+        <input type="text" id="inputMiddleName" class="form-control rounded-1"
+               style="font-size: small; height: fit-content" placeholder="Optional">
+      </div>
+
+      <div class="mb-2 text-left form-group">
+        <label for="inputUsername" style="font-size: small">*Username:</label>
+        <input type="text" id="inputUsername" class="form-control rounded-1"
+               style="font-size: small; height: fit-content" placeholder="admin" required>
+      </div>
+
+      <div class="mb-2 text-left form-group">
+        <label for="inputPhone" style="font-size: small">*Phone:</label>
+        <input type="tel" id="inputPhone" class="form-control rounded-1" style="font-size: small; height: fit-content"
+               placeholder="+12345678900" required>
+      </div>
+
+      <div class="mb-2 text-left form-group">
+        <label for="inputEmail" style="font-size: small">*Email:</label>
+        <input type="email" id="inputEmail" class="form-control rounded-1" style="font-size: small; height: fit-content"
+               placeholder="johndoe@example.com"
+               required>
+      </div>
+
+      <div class="mb-3 text-left form-group">
+        <label for="inputPassword" style="font-size: small">*Password:</label>
+        <input type="password" id="inputPassword" class="form-control rounded-1"
+               style="font-size: small; height: fit-content" placeholder="Password" required>
+      </div>
+
+      <button class="btn btn-md btn-info btn-block rounded-pill" type="submit">Register</button>
+      <hr>
+      <a class="btn btn-md btn-outline-info btn-block rounded-pill" href="http://localhost:8080/auth-login">Back to Sign
+        In</a>
+    </form>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  document.getElementById('registerForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var firstName = document.getElementById('inputFirstName').value;
+    var lastName = document.getElementById('inputLastName').value;
+    var middleName = document.getElementById('inputMiddleName').value || ""; // Middle name is optional
+    var username = document.getElementById('inputUsername').value;
+    var phone = document.getElementById('inputPhone').value;
+    var email = document.getElementById('inputEmail').value;
+    var password = document.getElementById('inputPassword').value;
+
+    // Собираем данные для отправки
+    var data = {
+      username: username,
+      phone: phone,
+      email: email,
+      fullName: {
+        firstName: firstName,
+        lastName: lastName,
+        middleName: middleName
+      },
+      password: password
+    };
+
+    // Отправляем запрос на регистрацию
+    fetch('http://localhost:8080/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        sessionStorage.setItem('sentTo', email)
+        window.location.href = 'auth-email-sent.html'
+        // Действия после успешной регистрации, например переадресация
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Обработка ошибок
+      });
+  });
+</script>
+</body>
+</html>

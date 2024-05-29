@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Admin Dashboard</title>
+  <style>
+    body, html {
+      height: 100%;
+    }
+    .container-fluid, .row {
+      height: 100%;
+    }
+    .sidebar {
+      background-color: #f8f9fa;
+      border-right: 1px solid #dee2e6;
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid min-vh-100">
+  <div class="row min-vh-100">
+    <nav class="col-2 d-none d-md-block bg-light sidebar">
+      <h5 class="display-5 mt-4">Easy Trip Admin Panel</h5>
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="btn btn-info w-100 mt-3" href="admin-users.html">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-info w-100 mt-3" href="admin-locations.html">Locations</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-info w-100 mt-3" href="#">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-info w-100 mt-3" href="#">Customers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="container col-9 mt-4">
+      <h1>Users</h1>
+      <table class="table table-hover mt-5">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Full Name</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody id="userTable">
+        </tbody>
+      </table>
+    </main>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('http://localhost:8080/admin/users')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('userTable');
+        data.forEach(user => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.fullName.firstName} ${user.fullName.lastName}</td>
+                        <td>${user.status}</td>`;
+          tableBody.appendChild(tr);
+        });
+      })
+      .catch(error => console.error('Error fetching users:', error));
+  });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,19 +1,18 @@
-package app.useCase.user
+package app.useCase.user.register
 
 import app.core.cache.CacheService
 import app.core.email.GmailService
 import app.core.entity.subscription.SubscriptionCode
-import app.core.entity.user.dto.UserFullName
-import app.core.entity.user.repo.UserStatus
 import app.core.entity.user.service.UserService
 import app.useCase.UseCase
+import app.useCase.user.loginViaEmail.LoginViaEmailElement
 import org.slf4j.LoggerFactory
 import org.springframework.core.env.Environment
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import java.io.Serializable
 import java.net.InetAddress
+import java.net.URLEncoder
 import java.time.Duration
 import java.util.*
 
@@ -23,12 +22,12 @@ class RegisterUser(
   private val cacheService: CacheService,
   private val userService: UserService,
   private val env: Environment
-) : UseCase<RegisterUser.Input, RegisterUser.UserRegistrationResult>() {
+) : UseCase<RegisterUserInput, UserRegistrationResult>() {
 
   private val logger = LoggerFactory.getLogger(this::class.java)
 
   @Transactional
-  override fun handle(input: Input): UserRegistrationResult {
+  override fun handle(input: RegisterUserInput): UserRegistrationResult {
     userService.getByUsername(input.username)?.let { return UserRegistrationResult.ALREADY_REGISTERED_USERNAME }
     userService.getByEmail(input.email)?.let { return UserRegistrationResult.ALREADY_REGISTERED_EMAIL }
     userService.getByPhone(input.phone)?.let { return UserRegistrationResult.ALREADY_REGISTERED_PHONE }
@@ -53,7 +52,7 @@ class RegisterUser(
     logger.info("Issued login-via-email code for ${user.username}: $uuid")
 
     val addr = "http://${InetAddress.getLocalHost().hostAddress}:${env.getProperty("server.port")}" +
-      "/auth/login-via-email?uuid=$uuid"
+      "/auth/login-via-email?uuid=${URLEncoder.encode(uuid, "UTF-8")}"
 
     gmailService.sendEmail(
       to = input.email,
@@ -64,19 +63,4 @@ class RegisterUser(
     return UserRegistrationResult.SUCCESS
   }
 
-  enum class UserRegistrationResult {
-    ALREADY_REGISTERED_EMAIL,
-    ALREADY_REGISTERED_USERNAME,
-    ALREADY_REGISTERED_PHONE,
-    SUCCESS
-  }
-
-  data class Input(
-    val username: String,
-    val phone: String,
-    val email: String,
-    val fullName: UserFullName,
-    val password: String,
-    val status: UserStatus?
-  ) : Serializable
 }

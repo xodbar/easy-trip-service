@@ -21,7 +21,6 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "locations")
-@DynamicUpdate
 class LocationModel(
 
   @Id

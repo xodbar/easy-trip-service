@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface LocationRepo : JpaRepository<LocationModel, Long> {
-  fun findFirstByTitle(title: String): LocationModel?
+  fun findByTitle(title: String): LocationModel?
 }

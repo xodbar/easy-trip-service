@@ -1,12 +1,15 @@
-package app.useCase.location
+package app.useCase.location.details
 
 import app.core.auth.AuthService
 import app.core.entity.location.Location
 import app.core.entity.location.LocationService
+import app.core.entity.location.LocationWithMedia
+import app.core.entity.media.location.LocationMediaService
+import app.core.entity.media.review.LocationReviewMediaService
 import app.core.entity.review.LocationReview
 import app.core.entity.review.LocationReviewService
+import app.core.entity.review.LocationReviewWithMedia
 import app.core.entity.view.UserLocationViewService
-import app.core.estateExplorer.dto.EstateExplorerEstateElement
 import app.core.estateExplorer.dto.EstateExplorerEstateType
 import app.core.estateExplorer.dto.EstateExplorerListRequest
 import app.core.estateExplorer.dto.EstateExplorerPublicationType
@@ -14,19 +17,20 @@ import app.core.estateExplorer.service.EstateExplorerService
 import app.useCase.UseCase
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import java.io.Serializable
 
 @Component
 class ViewLocationDetails(
   private val userLocationViewService: UserLocationViewService,
   private val locationReviewService: LocationReviewService,
   private val locationService: LocationService,
+  private val locationMediaService: LocationMediaService,
+  private val locationReviewMediaService: LocationReviewMediaService,
   private val authService: AuthService,
   private val estateExplorerService: EstateExplorerService
-) : UseCase<ViewLocationDetails.Input, ViewLocationDetails.Output>() {
+) : UseCase<ViewLocationDetailsInput, ViewLocationDetailsOutput>() {
 
   @Transactional
-  override fun handle(input: Input): Output? {
+  override fun handle(input: ViewLocationDetailsInput): ViewLocationDetailsOutput? {
     val location = locationService.getById(input.locationId)
     val user = authService.getUserFromSession(input.sessionId)
       ?: throw RuntimeException("User not found in session")
@@ -48,22 +52,33 @@ class ViewLocationDetails(
 
     val reviews = locationReviewService.getReviewsByLocation(location.id)
 
-    return Output(
-      location = location,
+    return ViewLocationDetailsOutput(
+      location = mapToLocationWithMedia(location),
       estateRecommendation = estateList.list,
-      reviews = reviews
+      reviews = reviews.map { mapToReviewWithMedia(it) }
     )
   }
 
-  data class Input(
-    val sessionId: String,
-    val locationId: Long,
-    val metadataJson: String?
-  ) : Serializable
+  private fun mapToLocationWithMedia(location: Location) = LocationWithMedia(
+    id = location.id,
+    title = location.title,
+    description = location.description,
+    coordinates = location.coordinates,
+    nearestSupportedCity = location.nearestSupportedCity,
+    createdAt = location.createdAt,
+    updatedAt = location.updatedAt,
+    tags = location.tags,
+    averageBudget = location.averageBudget,
+    media = locationMediaService.getAllByLocationId(location.id),
+    averageRating = locationReviewService.averageRating(location.id)
+  )
 
-  data class Output(
-    val location: Location,
-    val estateRecommendation: List<EstateExplorerEstateElement>,
-    val reviews: List<LocationReview>
-  ) : Serializable
+  private fun mapToReviewWithMedia(locationReview: LocationReview) = LocationReviewWithMedia(
+    id = locationReview.id,
+    userId = locationReview.userId,
+    locationId = locationReview.locationId,
+    rating = locationReview.rating,
+    content = locationReview.content,
+    media = locationReviewMediaService.getAllByLocationReview(locationReview.id)
+  )
 }

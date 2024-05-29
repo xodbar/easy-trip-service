@@ -19,7 +19,7 @@ class AuthService(
   fun createSession(userId: Long): String {
     val user = userService.getById(userId)
 
-    if (user?.status != UserStatus.ACTIVE)
+    if (user?.status != UserStatus.ACTIVE && user?.status != UserStatus.VERIFICATION_PENDING)
       throw RuntimeException("User status is invalid [userId=$userId]")
 
     val sessionId = UUID.randomUUID().toString()

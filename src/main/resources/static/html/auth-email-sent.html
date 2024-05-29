@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+  <title>EasyTrip</title>
+  <style>
+    body, html {
+      font-family: "Public Sans", sans-serif;
+      height: 100%;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: xxx-large;
+    }
+
+    .bg-container {
+      background-color: #fdfeff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+    }
+
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .logo {
+      max-height: 70vh; /* Максимальная высота изображения */
+      object-fit: contain; /* Чтобы изображение сохраняло пропорции */
+      margin: 0 auto; /* Центрирование изображения */
+    }
+
+    .form-background {
+      background-color: #ffffff; /* Пример цвета фона */
+      flex-grow: 1; /* Заставляет фон тянуться до конца страницы */
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bg-footer {
+      background: url('https://freepngimg.com/thumb/city/36284-8-city-transparent-image.png') repeat-x bottom;
+      background-size: contain;
+      padding: 20px 0; /* Вы можете установить нужный вам padding */
+    }
+  </style>
+</head>
+<body>
+<div class="bg-container min-vh-100">
+  <div class="form-background container" style="color: #142d3a">
+    <h1 class="h3 mb-5 text-uppercase text-align-left"><span class="text-info">Almost Here!</span></h1>
+    <div class="min-vh-50 justify-content-center align-items-center" style="
+    display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;">
+      <img class="logo mx-auto" src="https://i.ibb.co.com/dGZNnVL/2024-04-28-155550820.png" width="200px" height="200px"
+           alt="">
+      <p class="container text-center" id="sent_to_item"></p>
+    </div>
+  </div>
+  <div class="min-vh-10 bg-footer w-100 mt-auto" style="padding: 100px"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  window.onload = function () {
+    let a = document.getElementById('sent_to_item');
+    a.innerHTML = 'We’ve sent link to <br><b class="text-info">' + sessionStorage.getItem('sentTo') + '</b><br> so you can log in into system via this link';
+  };
+</script>
+</body>
+</html>

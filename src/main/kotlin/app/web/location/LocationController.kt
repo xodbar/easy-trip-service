@@ -1,8 +1,10 @@
 package app.web.location
 
-import app.core.entity.location.LocationService
-import app.useCase.location.GetLocationsList
-import app.useCase.location.ViewLocationDetails
+import app.useCase.location.get.GetLocationListInput
+import app.useCase.location.get.GetLocationsList
+import app.useCase.location.details.ViewLocationDetails
+import app.useCase.location.details.ViewLocationDetailsInput
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestHeader
@@ -12,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/locations")
+@CrossOrigin
 class LocationController(
   private val viewLocationDetails: ViewLocationDetails,
-  private val getLocationsList: GetLocationsList,
-  private val locationService: LocationService
+  private val getLocationsList: GetLocationsList
 ) {
 
   @GetMapping
   @ResponseBody
   fun getLocations(@RequestHeader(required = false) sessionId: String?) =
-    getLocationsList.handle(GetLocationsList.Input(sessionId))
+    getLocationsList.handle(GetLocationListInput(sessionId))
 
   @GetMapping("/{id}")
   @ResponseBody
@@ -29,7 +31,7 @@ class LocationController(
     @RequestHeader(required = true) sessionId: String,
     @PathVariable("id") locationId: Long
   ) = viewLocationDetails.handle(
-    ViewLocationDetails.Input(
+    ViewLocationDetailsInput(
       sessionId = sessionId,
       locationId = locationId,
       metadataJson = null

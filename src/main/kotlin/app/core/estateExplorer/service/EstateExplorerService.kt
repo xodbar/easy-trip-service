@@ -42,6 +42,6 @@ class EnabledEstateExplorerService : EstateExplorerService, EnabledFeature<Estat
 class MockedEstateExplorerService : EstateExplorerService, MockedFeature<EstateExplorerService> {
 
   override fun getEstateList(request: EstateExplorerListRequest): EstateExplorerListResponse {
-    TODO("Not yet implemented")
+    return EstateExplorerListResponse(emptyList())
   }
 }

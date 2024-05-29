@@ -33,7 +33,7 @@ class UserService(
       phoneNumber = phone,
       createdAt = getCurrentAlmatyLocalDateTime(),
       updatedAt = getCurrentAlmatyLocalDateTime(),
-      subscription = subscriptionRepo.findFirstByCodeContains(subscriptionCode.name)!!,
+      subscription = subscriptionRepo.findByCode(subscriptionCode)!!,
       status = UserStatus.VERIFICATION_PENDING
     )
   ).toDTO()
@@ -42,39 +42,39 @@ class UserService(
     repo.findAll().map { it.toDTO() }
 
   fun getByUsername(username: String) =
-    repo.findFirstByUsername(username)?.toDTO()
+    repo.findByUsername(username)?.toDTO()
 
   fun getByPhone(phone: String) =
-    repo.findFirstByPhoneNumber(phone)?.toDTO()
+    repo.findByPhoneNumber(phone)?.toDTO()
 
   fun getByEmail(email: String) =
-    repo.findFirstByEmail(email)?.toDTO()
+    repo.findByEmail(email)?.toDTO()
 
   fun getById(id: Long) =
     repo.findByIdOrNull(id)?.toDTO()
 
   fun getExtendedByUsername(username: String) =
-    repo.findFirstByUsername(username)?.toExtendedDTO()
+    repo.findByUsername(username)?.toExtendedDTO()
 
   fun getExtendedByEmail(email: String) =
-    repo.findFirstByEmail(email)?.toExtendedDTO()
+    repo.findByEmail(email)?.toExtendedDTO()
 
   fun updateUser(
     id: Long,
-    username: String,
-    password: String,
-    fullName: UserFullName,
-    phoneNumber: String,
-    email: String,
-    status: UserStatus
+    username: String? = null,
+    password: String? = null,
+    fullName: UserFullName? = null,
+    phoneNumber: String? = null,
+    email: String? = null,
+    status: UserStatus? = null
   ): User {
     val model = repo.findById(id).orElseThrow()
-    model.username = username
-    model.password = password
-    model.fullName = fullName
-    model.phoneNumber = phoneNumber
-    model.email = email
-    model.status = status
+    username?.let { model.username = username }
+    password?.let { model.password = password }
+    fullName?.let { model.fullName = fullName }
+    phoneNumber?.let { model.phoneNumber = phoneNumber }
+    email?.let { model.email = email }
+    status?.let { model.status = status }
 
     return model.toDTO()
   }

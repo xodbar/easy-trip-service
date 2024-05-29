@@ -21,10 +21,4 @@ import org.springframework.context.annotation.Configuration
     description = "API of Easy-Trip application"
   )
 )
-//@SecurityScheme(
-//    name = "Bearer Authentication",
-//    type = SecuritySchemeType.HTTP,
-//    bearerFormat = "JWT",
-//    scheme = "bearer"
-//)
 class OpenApi30Config

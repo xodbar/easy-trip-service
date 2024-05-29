@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserRepo : JpaRepository<UserModel, Long> {
-  fun findFirstByUsername(username: String): UserModel?
-  fun findFirstByPhoneNumber(phoneNumber: String): UserModel?
-  fun findFirstByEmail(email: String): UserModel?
+  fun findByUsername(username: String): UserModel?
+  fun findByPhoneNumber(phoneNumber: String): UserModel?
+  fun findByEmail(email: String): UserModel?
 }

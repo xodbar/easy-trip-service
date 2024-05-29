@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+  <title>Добро пожаловать в EasyTrip</title>
+  <style>
+    body, html {
+      font-family: "Public Sans", sans-serif;
+      height: 100%;
+    }
+
+    .carousel-item {
+      text-align: center;
+      color: #000000;
+    }
+
+    .carousel-item h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .carousel-item p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .carousel-item button {
+      font-size: 1rem;
+      padding: 0.5rem 2rem;
+    }
+
+    .carousel-item img {
+      max-height: 70vh; /* Максимальная высота изображения */
+      object-fit: contain; /* Чтобы изображение сохраняло пропорции */
+      margin: 0 auto; /* Центрирование изображения */
+    }
+
+    /* Адаптивность для различных устройств */
+    @media (max-width: 768px) {
+      .carousel-item h1 {
+        font-size: 2rem;
+      }
+
+      .carousel-item p {
+        font-size: 1rem;
+      }
+
+      .carousel-item button {
+        font-size: 0.875rem;
+        padding: 0.4rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="welcomeCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#welcomeCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#welcomeCarousel" data-slide-to="1"></li>
+    <li data-target="#welcomeCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="d-flex flex-column justify-content-center align-items-center min-vh-100"
+           style="background-color: #a0f6ff;">
+        <div class="container">
+          <img src="https://iili.io/JUOwVPS.png" alt="" class="img-fluid">
+          <h1>Welcome to EasyTrip</h1>
+          <p>Get ready for your tour and go to your desire destinations!</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="d-flex flex-column justify-content-center align-items-center min-vh-100"
+           style="background-color: #dd8bff;">
+        <div class="container">
+          <img src="https://iili.io/JUOwGol.png" class="img-fluid" alt="">
+          <h1>Welcome to EasyTrip</h1>
+          <p>Get ready for your tour and go to your desire destinations!</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="d-flex flex-column justify-content-center align-items-center min-vh-100"
+           style="background-color: #ffffff;">
+        <div class="container">
+          <img src="https://iili.io/JUOwMV2.png" class="img-fluid" alt="">
+          <h1>Welcome to EasyTrip</h1>
+          <p>Get ready for your tour and go to your desire destinations!</p>
+          <a href="http://localhost:8080/auth-login" class="btn btn-info btn-lg rounded-pill">Let's Go!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev d-none" href="#welcomeCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next d-none" href="#welcomeCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -12,4 +12,15 @@ data class User(
   val email: String,
   val status: UserStatus,
   val subscription: SubscriptionCode
-) : Serializable
+) : Serializable {
+
+  fun toBasic() = BasicUserInfo(
+    id, username, fullName
+  )
+}
+
+data class BasicUserInfo(
+  val id: Long,
+  val username: String,
+  val fullName: UserFullName
+)
